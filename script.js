@@ -1,5 +1,3 @@
-
-
 const inputBox = document.getElementById("input-box");
 const listContainer = document.getElementById("list-container");
 
@@ -12,41 +10,36 @@ function addTask() {
         li.innerText = inputBox.value;
         listContainer.appendChild(li);
 
-        // Create delete button 
         let span = document.createElement("span");
         span.innerHTML = "\u00d7";
         span.className = "delete";
         li.appendChild(span);
-    }
-    inputBox.value = "";
+
         saveData();
+    }
+
+    inputBox.value = "";
 }
 
-// Click events (check + delete)
+// Check and Delete
 listContainer.addEventListener("click", function (e) {
     if (e.target.tagName === "LI") {
         e.target.classList.toggle("checked");
         saveData();
-    } 
-    else if (e.target.tagName === "SPAN") {
+    } else if (e.target.tagName === "SPAN") {
         e.target.parentElement.remove();
         saveData();
-
     }
 }, false);
 
-listContainer.addEventListener("click", function (e) {
-    if (e.target.tagName === "LI") {
-        e.target.classList.toggle("checked");
-    } 
-    else if (e.target.tagName === "SPAN") {
-        e.target.parentElement.remove();
-    }
-}, false);
-
-function saveData(){
+// Save tasks
+function saveData() {
     localStorage.setItem("data", listContainer.innerHTML);
 }
-function showTask(){
+
+// Show saved tasks
+function showTask() {
     listContainer.innerHTML = localStorage.getItem("data");
 }
+
+showTask();
